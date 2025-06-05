@@ -6,8 +6,8 @@ from .abstract_property_source import AbstractPropertySource
 
 class EnvVarsPropertySource(AbstractPropertySource):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, order: int = 0):
+        super().__init__(order)
 
     def _get(self, name: str) -> Any:
         if name not in os.environ:

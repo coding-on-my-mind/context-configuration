@@ -1,11 +1,10 @@
 from datetime import datetime
 from typing import Any
 
-from ..protocol.converter import Converter, T
+from .. import Converter, T
 
 
 class IsoFormatDateTimeConverter(Converter[datetime]):
-
 
     def for_type(self) -> T:
         return datetime

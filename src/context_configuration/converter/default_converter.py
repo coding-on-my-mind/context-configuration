@@ -1,6 +1,7 @@
+from enum import EnumMeta
 from typing import Any, Callable, Dict
 
-from ..protocol.property_source import P
+from .. import P
 
 
 def convert_string(value: Any) -> str:
@@ -22,11 +23,17 @@ def default_converter() -> Dict[type, Callable]:
         float: convert_float,
     }
 
-def convert(value: Any, converter_list: Dict[type, Callable], clazz: type[P]) -> P:
-    for cls, converter_callable in converter_list.items():
-        if cls == clazz:
+
+# For duration take isodate.parse_duration('PT1H5M26S')
+
+def convert(value: Any, converter_list: Dict[type, Callable], cls: type[P]) -> P:
+    if isinstance(cls, EnumMeta):
+        return cls(value)
+
+    for clazz, converter_callable in converter_list.items():
+        if clazz == cls:
             try:
                 return converter_callable(value)
             except Exception as e:
-                raise KeyError(f'Error while trying to convert {value} to {clazz.__name__}') from e
-    raise KeyError(f"Could not convert property '{value}'to {clazz.__name__}, no converter found!")
+                raise KeyError(f'Error while trying to convert {value} to {cls.__name__}') from e
+    raise KeyError(f"Could not convert property '{value}'to {cls.__name__}, no converter found!")

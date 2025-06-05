@@ -1,9 +1,8 @@
 from abc import ABC
 from typing import Dict, Callable, Optional, Any
 
+from .. import OrderedPropertySource, Converter, P
 from ..converter.default_converter import default_converter, convert
-from ..protocol.converter import Converter
-from ..protocol.property_source import OrderedPropertySource, P
 
 
 class AbstractPropertySource(OrderedPropertySource, ABC):

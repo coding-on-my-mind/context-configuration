@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from property_source.cli_property_source import CLIPropertySource
+from src.context_configuration.property_source.cli_property_source import CLIPropertySource
 
 
 def test_should_return_double_dash_property():

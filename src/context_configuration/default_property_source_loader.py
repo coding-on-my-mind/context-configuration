@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Any
 
 from property_source.pyyaml_property_source import PyYAMLPropertySource
-from protocol.property_source import PropertySource
+from . import PropertySource
 
 
 class DefaultPropertySourcesLoader:

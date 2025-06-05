@@ -1,10 +1,11 @@
 from dataclasses import dataclass, is_dataclass
 
-from ..protocol.converter import Converter, T
+from .. import Converter, T
 import inspect
 import typing
 
-class DataclassConverter(Converter[T: dataclass]):
+
+class DataclassConverter(Converter[T]):
 
     def __init__(self, cls: T):
         if not is_dataclass(cls):

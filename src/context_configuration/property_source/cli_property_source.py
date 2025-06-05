@@ -6,11 +6,10 @@ from ..property_source.abstract_property_source import AbstractPropertySource
 
 class CLIPropertySource(AbstractPropertySource):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, order: int = 0):
+        super().__init__(order)
         self._properties = {}
-        cli_arguments = sys.argv
-        argument_list = cli_arguments[1:]
+        argument_list = sys.argv[1:]
         self._parse_arguments(argument_list)
 
     def _get(self, name: str) -> Any:
@@ -26,7 +25,6 @@ class CLIPropertySource(AbstractPropertySource):
                 continue
             if argument.startswith("-"):
                 self._parse_single_dash_argument(argument, argument_list)
-                continue
 
     def _parse_double_dash_argument(self, argument: str, argument_list: List[str]) -> None:
         argument = argument[2:]

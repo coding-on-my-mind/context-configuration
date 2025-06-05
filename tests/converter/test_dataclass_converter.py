@@ -3,10 +3,7 @@ from typing import Optional
 import pytest
 from dataclasses import dataclass, is_dataclass
 
-from converter.dataclass_converter import DataclassConverter
-
-import inspect
-from collections import OrderedDict
+from src.context_configuration.converter import DataclassConverter
 
 
 @dataclass
@@ -62,6 +59,7 @@ def test_should_return_correct_converted_value():
     assert test_dataclass.__class__ == RegularTestDataclass
     assert test_dataclass.field_str == "a string"
     assert test_dataclass.field_int == 20
+    # TODO Sonar compare floating point values
     assert test_dataclass.field_float == 3.2
 
 
@@ -90,6 +88,7 @@ def test_should_return_correct_converted_value_with_default_fields():
     assert test_dataclass.__class__ == DefaultValueTestDataclass
     assert test_dataclass.field_str == "default string"
     assert test_dataclass.field_int == -1
+    # TODO Sonar compare floating point values
     assert test_dataclass.field_float == 3.2
 
 

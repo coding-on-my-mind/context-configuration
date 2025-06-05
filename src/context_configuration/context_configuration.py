@@ -1,15 +1,9 @@
 from random import random
 from typing import List, Callable, Dict, Tuple, Any
-from collections import namedtuple
 
 from .converter.default_converter import default_converter, convert
 from .converter.iso_format_datetime_converter import IsoFormatDateTimeConverter
-from .protocol.property_source import PropertySource, OrderedPropertySource, P
-
-
-
-
-Property = namedtuple('Property', ['argument', 'property_name', 'type'])
+from . import PropertySource, OrderedPropertySource, P, Property
 
 
 class ContextConfiguration(PropertySource):
