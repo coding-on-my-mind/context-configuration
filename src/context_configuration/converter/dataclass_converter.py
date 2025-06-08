@@ -1,6 +1,6 @@
 from dataclasses import dataclass, is_dataclass
 
-from .. import Converter, T
+from ..protocol import Converter, T
 import inspect
 import typing
 

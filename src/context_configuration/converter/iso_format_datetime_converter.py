@@ -5,6 +5,9 @@ from .. import Converter, T
 
 
 class IsoFormatDateTimeConverter(Converter[datetime]):
+    """
+    Converts a string to an ISO formatted datetime object.
+    """
 
     def for_type(self) -> T:
         return datetime

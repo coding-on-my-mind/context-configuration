@@ -2,29 +2,37 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+
 [project]
+authors = [
+    {name = "Detlef Wuppermann", email = "detlef@coding-on-my-mind.com"},
+]
+
 name = "context-configuration"
-version = "0.0.1"
+version = "0.0.2"
+readme = "README.md"
+license = "License :: OSI Approved :: MIT License"
 description = "Configuration management emulating Springs configuration management based on profiles and annotations."
 requires-python = ">=3.9"
+
 dependencies = [
     "PyYAML == 6.0.2",
 ]
 
+keywords = ["configuration", "context", "yaml", "cli", "envvars", "bean"]
+
 classifiers = [
     "Development Status :: 3 - Alpha",
-
-    # Indicate who your project is intended for
     "Intended Audience :: Developers",
-    "Topic :: Software Development :: Build Tools",
-
-    # Specify the Python versions you support here.
+    "Topic :: Software Development :: Libraries",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
 ]
+
+[project.urls]
+homepage = "https://coding-on-my-mind.com"
+repository = "https://github.com/coding-on-my-mind/context-configuration"
+issues = "https://github.com/coding-on-my-mind/context-configuration/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -34,8 +42,6 @@ dev = [
     "coverage == 7.4.1",
 ]
 
-[project.urls]
-"Homepage" = "https://coding-on-my-mind.com"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

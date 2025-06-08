@@ -37,10 +37,10 @@ def get_new_policy(name, description):
 
 
 def main():
-    print(get_policy())
-    print(get_policy())
-    print(get_new_policy())
-    print(get_new_policy())
+    print(id(get_policy()))
+    print(id(get_policy()))
+    print(id(get_new_policy()))
+    print(id(get_new_policy()))
 
 
 if __name__ == '__main__':

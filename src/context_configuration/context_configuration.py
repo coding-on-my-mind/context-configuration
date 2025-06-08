@@ -7,24 +7,19 @@ from . import PropertySource, OrderedPropertySource, P, Property
 
 
 class ContextConfiguration(PropertySource):
-    """
-    Loads the default configuration file from the 'profiles' folder, and if the environment variable 'RF_STAGE'
-    is set, it will load the configuration file for this stage as well. The stage configuration overwrites
-    the local configuration. The default environment should hold the configuration for the production system.
-    """
-
     _property_sources: List[OrderedPropertySource] = []
     _converter: Dict[type, Callable] = {}
     _immutable: bool = False
     _bean_store: Dict[int, Any] = {}
 
     def __init__(self, property_sources: List[OrderedPropertySource], converter: Dict[type, Callable]):
-        """ Loads the configuration files from disk according to the stage
+        """
+        Initializer for the ContextConfiguration class.
 
-            Raises
-                Exception
-                    If the environment variable 'RF_STAGE' is set but no configuration file
-                    for the stage could be found
+        :param property_sources: The list of ProperySource objects that can contain configurations.
+        :param converter: The list of converter classes that can translate one object into a given class.
+                          Will not overwrite a given set of default converters unless you define a converter
+                          for the target class again.
         """
         self._converter = default_converter()
         datetime_converter = IsoFormatDateTimeConverter()
@@ -52,15 +47,32 @@ class ContextConfiguration(PropertySource):
             return convert(value, self._converter, cls)
         raise KeyError(f"Could not find property '{name}'")
 
-
     def _make_immutable(self) -> None:
-        sorted(self._property_sources, key=lambda source: source.get_order)
+        """
+        Not implemented yet.
+        """
+        self._property_sources = sorted(self._property_sources, key=lambda source: source.get_order)
         self._immutable = True
 
     def properties(self, properties: List[Property], is_singleton: bool = True) -> Any:
+        """
+        Decorator function for annotating functions or methods to inject the given properties.
+
+        :param properties: A list of properties of type Property to inject.
+        :param is_singleton: If true, stores the returned object and returns it again the next time
+                             without creating it again.
+        """
 
         def decorator(func) -> Any:
             def wrapper():
+                """
+                Iterates over the given properties and stores the values for each property in a dictionary.
+                Creates a dict with all keys and the corresponding values which then will be
+                injected into the annotated function. If is_singleton is true, stores the returned object and
+                returns it again the next time.
+
+                :return: The class built with the given properties from the dictionary.
+                """
                 if is_singleton and id(func) in self._bean_store:
                     return self._bean_store[id(func)]
                 kwargs = {}
@@ -77,15 +89,29 @@ class ContextConfiguration(PropertySource):
 
 
 class ContextConfigurationBuilder:
+    """
+    Builder class for a ContextConfiguration instance. TODO: should be replaced with (another) immutable object creation.
+    """
     _property_sources: List[OrderedPropertySource] = []
     _converter: Dict[type, Callable] = {}
-    _order: 0
 
     def with_property_source(self, property_source: OrderedPropertySource):
+        """
+        Creates the new ContextConfiguration instance with the given property source.
+
+        :param property_source: The property sources for the new ContextConfiguration class.
+        :return: The builder.
+        """
         self._property_sources.append(property_source)
         return self
 
     def with_converter(self, converter: Tuple[type, Callable]):
+        """
+        Creates the new ContextConfiguration instance with the given converter.
+
+        :param converter: List of converters that can translate one object into a given class.
+        :return: The builder.
+        """
         _type, _callable = converter
         self._converter[_type] = callable
         return self

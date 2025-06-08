@@ -5,6 +5,9 @@ from .abstract_property_source import AbstractPropertySource
 
 
 class EnvVarsPropertySource(AbstractPropertySource):
+    """
+    PropertySource class based on environment variables.
+    """
 
     def __init__(self, order: int = 0):
         super().__init__(order)

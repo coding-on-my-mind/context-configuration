@@ -6,6 +6,10 @@ from ..converter.default_converter import default_converter, convert
 
 
 class AbstractPropertySource(OrderedPropertySource, ABC):
+    """
+    Abstract PropertySource class covering cases where the properties are organized in a dictionary.
+    """
+
     _properties: Optional[Dict[str, Any]] = None
     _converter: Dict[type, Callable] = {}
     _order: int = 0

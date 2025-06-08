@@ -5,6 +5,9 @@ from ..property_source.abstract_property_source import AbstractPropertySource
 
 
 class CLIPropertySource(AbstractPropertySource):
+    """
+    PropertySource class based on variables passed via the command line.
+    """
 
     def __init__(self, order: int = 0):
         super().__init__(order)
