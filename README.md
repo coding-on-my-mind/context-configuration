@@ -6,9 +6,10 @@ A simple, but powerful library to manage the configuration of your projects.
 
 * Usually, the configuration of an application is done in an inconsistent way, e.g., by hard-coding some properties
   and passing some via environment variables.
-* Often, the configuration changes for the different stages, on your local environment you want to use
-  different settings than in production. These configuration changes will then be updated to the prod
-  settings before the commit to the repository. This is cumbersome and error-prone.
+* Often, the configuration changes for the different stages.
+  Usually, you want to use different settings in your local environment compared to your in production.
+  These configuration changes will then be updated to the prod settings before the commit to the repository. 
+  This process can be cumbersome and error-prone.
 * Do not hard code URLs, files, etc. Instead, move the configuration into configuration files.
 * Hard-coding credentials is highly dangerous in many cases (see also [Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine][Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine]),
   and even forbidden for credentials when the code will be stored in a versioning system.
@@ -28,7 +29,8 @@ This is an example for a workflow that is possible with this library:
 ## How to start
 
 The first step is to define one or more ```PropertySource``` classes, where each is a source for a single configuration.
-With such a library you define a single point for your configuration.
+You then can create a ```ContextConfiguration``` object that manages your ```PropertySource``` classes.
+With such a library, you define a single point for your configuration.
 You then can use this dedicated place to fetch the configuration every item.
 This example shows you how it can be used:
 
@@ -36,9 +38,9 @@ This example shows you how it can be used:
 from dataclasses import dataclass
 
 from context_configuration import Property
-from context_configuration.context_configuration import ContextConfigurationBuilder
-from context_configuration.converter.dataclass_converter import DataclassConverter
-from context_configuration.property_source.env_vars_property_source import EnvVarsPropertySource
+from context_configuration import ContextConfigurationBuilder
+from context_configuration import DataclassConverter
+from context_configuration import EnvVarsPropertySource
 
 
 @dataclass
@@ -74,9 +76,11 @@ def get_new_policy_on_every_call(name, description):
 def main():
     print(get_policy_as_singleton())
     print(get_new_policy_on_every_call())
+    
     # Returns the same object on every call
     print(id(get_policy_as_singleton()))
     print(id(get_policy_as_singleton()))
+    
     # Returns a new object on every call
     print(id(get_new_policy_on_every_call()))
     print(id(get_new_policy_on_every_call()))

@@ -18,8 +18,15 @@ class ContextConfiguration(PropertySource):
 
     It can manage multiple PropertySource instances that hold key value pairs
     representing your configuration in an order.
+
     It holds a list of converters that are able to "translate" an object
     fetched from the properties to a specific class.
+
+    It contains a decorator that is able to read the properties from the
+    different PropertySource instances and can populate the decorated function.
+    Depending on the is_singleton configuration, it can create a new object on
+    every call, or, this is the default behavior, return the object created on
+    the first call.
     """
     _property_sources: List[OrderedPropertySource] = []
     _converter: Dict[type, Callable] = {}

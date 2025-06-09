@@ -6,6 +6,7 @@ from .protocol import P, T, Property, PropertySource, OrderedPropertySource, Con
 from .converter import DataclassConverter, IsoFormatDateTimeConverter
 from .property_source import AbstractPropertySource, CLIPropertySource, DictionaryPropertySource, \
     PyYAMLPropertySource, EnvVarsPropertySource
+from .context_configuration import ContextConfigurationBuilder, ContextConfiguration
 
 __all__ = (
     "P",
@@ -21,4 +22,6 @@ __all__ = (
     "DictionaryPropertySource",
     "EnvVarsPropertySource",
     "PyYAMLPropertySource",
+    "ContextConfigurationBuilder",
+    "ContextConfiguration",
 )
