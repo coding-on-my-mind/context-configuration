@@ -1,3 +1,8 @@
+"""
+Basic protocols used for the context-configuration library.
+
+You can define your own objects to work as you see fit.
+"""
 from collections import namedtuple
 from typing import Protocol, TypeVar, Any
 
@@ -5,7 +10,6 @@ T = TypeVar('T')
 P = TypeVar('P')
 
 Property = namedtuple('Property', ['argument', 'property_name', 'type'])
-
 
 class PropertySource(Protocol):
     """
@@ -19,9 +23,8 @@ class PropertySource(Protocol):
         :param name: The key to the object.
         :return: The object assigned to the property.
         """
-        ...
 
-    def get_property(self, name: str, cls: type[P]) -> P:
+    def get_property(self, name: str, cls: type[P] = None) -> P:
         """
         Returns an object assigned to the property.
 
@@ -29,7 +32,6 @@ class PropertySource(Protocol):
         :param cls: Optional value for the class the returned object should be of.
         :return: The object assigned to the property.
         """
-        ...
 
 
 class OrderedPropertySource(PropertySource):
@@ -43,7 +45,6 @@ class OrderedPropertySource(PropertySource):
 
         :return: The order within a list of PropertySource instances.
         """
-        ...
 
 
 class Converter(Protocol[T]):
@@ -59,13 +60,11 @@ class Converter(Protocol[T]):
 
         :return: The type after the conversion.
         """
-        ...
 
     def convert(self, properties: Any) -> T:
         """
-        Converts the properties object to the type T.
+        Converts the property object to the type T.
 
         :param properties: The properties object.
         :return: The object after the conversion.
         """
-        ...

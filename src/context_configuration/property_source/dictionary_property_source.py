@@ -1,3 +1,6 @@
+"""
+Implementation of a PropertySource class based on a dictionary.
+"""
 from typing import Dict
 
 from .abstract_property_source import AbstractPropertySource

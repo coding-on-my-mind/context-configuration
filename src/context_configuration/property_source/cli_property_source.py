@@ -1,7 +1,11 @@
+"""
+Implementation of a PropertySource class that is reading
+the properties provided by the command line.
+"""
 import sys
 from typing import List, Any
 
-from ..property_source.abstract_property_source import AbstractPropertySource
+from .abstract_property_source import AbstractPropertySource
 
 
 class CLIPropertySource(AbstractPropertySource):

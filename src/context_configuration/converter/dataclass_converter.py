@@ -1,11 +1,23 @@
-from dataclasses import dataclass, is_dataclass
-
-from ..protocol import Converter, T
+"""
+Converter for dataclass objects.
+TODO check the different possibilities how dataclass objects
+can be created and if this class covers all of them.
+"""
 import inspect
 import typing
 
+from dataclasses import dataclass, is_dataclass
+
+from ..protocol import Converter, T
+
 
 class DataclassConverter(Converter[T]):
+    """
+    Converter for dataclass objects.
+
+    This converter reads all properties needed for the instantiation of
+    such a class from the __init__ method.
+    """
 
     def __init__(self, cls: T):
         if not is_dataclass(cls):
@@ -34,8 +46,9 @@ class DataclassConverter(Converter[T]):
                     continue
                 if param.annotation == typing.Optional[float]:
                     continue
-                raise ValueError(f"Required key '{param.name}' not found in configuration parameters.")
-            if type(properties[param.name]) != param.annotation:
+                raise ValueError(f"Required key '{param.name}' not found "
+                                 f"in configuration parameters.")
+            if not isinstance(properties[param.name], param.annotation):
                 raise ValueError(f"Required key '{param.name}' is of wrong type "
                                  f"(expected: '{param.annotation}', "
                                  f"given: '{type(properties[param.name])}'.")
@@ -43,4 +56,5 @@ class DataclassConverter(Converter[T]):
         try:
             return self._cls(**kw_arguments)
         except ValueError as e:
-            raise ValueError(f"Could not convert '{properties}' to dataclass of type '{self._cls}'.") from e
+            raise ValueError(f"Could not convert '{properties}' to dataclass of "
+                             f"type '{self._cls}'.") from e

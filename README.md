@@ -4,18 +4,32 @@ A simple, but powerful library to manage the configuration of your projects.
 
 ## What is the purpose of this library?
 
-Usually, the configuration of an application is done in an inconsistent way, e.g., by hard-coding properties or passing them via environment variables.
-Hard-coding variables is not recommended in many cases, and even forbidden for credentials when the code will be stored in a versioning system.
-Keeping track of the configuration gets messy when you want to deploy your software on different systems, or you want it to work in your development environment as well as on production.
+* Usually, the configuration of an application is done in an inconsistent way, e.g., by hard-coding some properties
+  and passing some via environment variables.
+* Often, the configuration changes for the different stages, on your local environment you want to use
+  different settings than in production. These configuration changes will then be updated to the prod
+  settings before the commit to the repository. This is cumbersome and error-prone.
+* Do not hard code URLs, files, etc. Instead, move the configuration into configuration files.
+* Hard-coding credentials is highly dangerous in many cases (see also [Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine][Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine]),
+  and even forbidden for credentials when the code will be stored in a versioning system.
+* Keeping track of the configuration gets messy when you want to deploy your software on different systems, or you 
+  want it to work in your development environment as well as on production.
+
+## Consistent configurations across different environments reduce "it works on my machine" issues.
+
+This is an example for a workflow that is possible with this library: 
+* Create a configuration for each stage: local development, production, QA (e.g. for automated tests), ...
+* Start configuring your environment from prod, and overwrite only those values that deviate from this environment in 
+  your test or local environment.
+* Leave out the credentials from your configuration files, that are commited to a (Git) repository.
+* Instead, define a configuration that is excluded from your repository, where you can define credentials and 
+  overwrite some settings.
 
 ## How to start
 
-The first step is to define a ```PropertySource``` class, which is a source for a single configuration
-
-With this library you define a single point for your configuration.
-
-You then can use this dedicated place to fetch the configuration for every item.
-
+The first step is to define one or more ```PropertySource``` classes, where each is a source for a single configuration.
+With such a library you define a single point for your configuration.
+You then can use this dedicated place to fetch the configuration every item.
 This example shows you how it can be used:
 
 ```python
@@ -78,3 +92,6 @@ if __name__ == '__main__':
 # 140188272692432
 # 140188272691520
 ```
+
+[Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine]: https://jfrog.com/blog/leaked-pypi-secret-token-revealed-in-binary-preventing-suppy-chain-attack/
+  

@@ -1,3 +1,7 @@
+"""
+Implementation of a PropertySource class that is reading
+the properties from environment variables.
+"""
 import os
 from typing import Any
 
@@ -8,9 +12,6 @@ class EnvVarsPropertySource(AbstractPropertySource):
     """
     PropertySource class based on environment variables.
     """
-
-    def __init__(self, order: int = 0):
-        super().__init__(order)
 
     def _get(self, name: str) -> Any:
         if name not in os.environ:

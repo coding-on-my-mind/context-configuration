@@ -9,14 +9,15 @@ authors = [
 ]
 
 name = "context-configuration"
-version = "0.0.2"
+dynamic = ["version"]
 readme = "README.md"
-license = "License :: OSI Approved :: MIT License"
-description = "Configuration management emulating Springs configuration management based on profiles and annotations."
+license = "MIT"
+license-files = ["LICENSE"]
+description = "Configuration management based on profiles and annotations."
 requires-python = ">=3.9"
 
 dependencies = [
-    "PyYAML == 6.0.2",
+    "PyYAML >= 6.0.0",
 ]
 
 keywords = ["configuration", "context", "yaml", "cli", "envvars", "bean"]
@@ -42,9 +43,11 @@ dev = [
     "coverage == 7.4.1",
 ]
 
-
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.dynamic]
+version = {file = "__version__.txt"}
 
 [tool.pytest.ini_options]
 pythonpath = [

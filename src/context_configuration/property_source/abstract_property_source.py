@@ -1,3 +1,9 @@
+"""
+Abstract implementation of a PropertySource class.
+
+This implementation is based on a dictionary and should serve
+several default use cases.
+"""
 from abc import ABC
 from typing import Dict, Callable, Optional, Any
 
@@ -7,7 +13,8 @@ from ..converter.default_converter import default_converter, convert
 
 class AbstractPropertySource(OrderedPropertySource, ABC):
     """
-    Abstract PropertySource class covering cases where the properties are organized in a dictionary.
+    Abstract PropertySource class covering cases where the
+    properties are organized in a dictionary.
     """
 
     _properties: Optional[Dict[str, Any]] = None
@@ -15,10 +22,17 @@ class AbstractPropertySource(OrderedPropertySource, ABC):
     _order: int = 0
 
     def __init__(self, order=0):
+        super().__init__()
         self._order = order
         self._converter = default_converter()
 
     def add_converter(self, converter: Converter):
+        """
+        Enables the addition of custom converters.
+
+        :param converter: Converter to translate to a given object class.
+        :return: The converted object.
+        """
         self._converter[converter.for_type()] = converter.convert
 
     def contains_property(self, name: str) -> bool:
@@ -29,7 +43,8 @@ class AbstractPropertySource(OrderedPropertySource, ABC):
             return False
 
     def get_property(self, name: str, cls: Optional[P] = None):
-        if (name is None) or (name == "") or (".." in name) or (name.startswith(".")) or (name.endswith(".")):
+        if ((name is None) or (name == "") or (".." in name) or
+                (name.startswith(".")) or (name.endswith("."))):
             raise KeyError("Property name cannot be empty, start or end with a dot "
                            "or contain two consecutive dots ('..')")
 
@@ -38,7 +53,7 @@ class AbstractPropertySource(OrderedPropertySource, ABC):
         if cls is None:
             return value
 
-        if type(value) is cls:
+        if isinstance(value, cls):
             return value
 
         return convert(value, self._converter, cls)

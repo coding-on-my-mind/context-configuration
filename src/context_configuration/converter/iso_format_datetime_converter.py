@@ -1,3 +1,7 @@
+"""
+Converter for converting a string into a datetime object. It expects
+an ISO8601 datetime string as input.
+"""
 from datetime import datetime
 from typing import Any
 

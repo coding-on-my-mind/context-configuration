@@ -1,3 +1,6 @@
+"""
+Default converters for a PropertySource class.
+"""
 from enum import EnumMeta
 from typing import Any, Callable, Dict
 
@@ -67,6 +70,8 @@ def convert(value: Any, converter_list: Dict[type, Callable], cls: type[P]) -> P
             try:
                 return converter_callable(value)
             except Exception as e:
-                raise KeyError(f"Error while trying to convert '{value}' to '{cls.__name__}'.") from e
+                raise KeyError(f"Error while trying to convert '{value}' "
+                               f"to '{cls.__name__}'.") from e
 
-    raise KeyError(f"Could not convert property '{value}'to {cls.__name__}, no converter found!")
+    raise KeyError(f"Could not convert property '{value}'to {cls.__name__}, "
+                   f"no converter found!")

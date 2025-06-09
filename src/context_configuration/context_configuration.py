@@ -1,3 +1,9 @@
+"""
+This module contains the "main" class of the context-configuration lib,
+although you could use a PropertySource class by itself for facilitating
+the configuration of your project.
+TODO: move to __init__ ?
+"""
 from random import random
 from typing import List, Callable, Dict, Tuple, Any
 
@@ -7,19 +13,29 @@ from . import PropertySource, OrderedPropertySource, P, Property
 
 
 class ContextConfiguration(PropertySource):
+    """
+    General class for the configuration of the configuration.
+
+    It can manage multiple PropertySource instances that hold key value pairs
+    representing your configuration in an order.
+    It holds a list of converters that are able to "translate" an object
+    fetched from the properties to a specific class.
+    """
     _property_sources: List[OrderedPropertySource] = []
     _converter: Dict[type, Callable] = {}
     _immutable: bool = False
     _bean_store: Dict[int, Any] = {}
 
-    def __init__(self, property_sources: List[OrderedPropertySource], converter: Dict[type, Callable]):
+    def __init__(self,
+                 property_sources: List[OrderedPropertySource],
+                 converter: Dict[type, Callable]):
         """
         Initializer for the ContextConfiguration class.
 
         :param property_sources: The list of ProperySource objects that can contain configurations.
-        :param converter: The list of converter classes that can translate one object into a given class.
-                          Will not overwrite a given set of default converters unless you define a converter
-                          for the target class again.
+        :param converter: The list of converter classes that can translate one object into a
+                          given class. Will not overwrite a given set of default converters unless
+                          you define a converter for the target class again.
         """
         self._converter = default_converter()
         datetime_converter = IsoFormatDateTimeConverter()
@@ -35,7 +51,7 @@ class ContextConfiguration(PropertySource):
                 return True
         return False
 
-    def get_property(self, name: str, cls: type[P]) -> P:
+    def get_property(self, name: str, cls: type[P] = None) -> P:
         if not self.contains_property(name):
             raise KeyError(f"Could not find property '{name}'")
 
@@ -66,12 +82,12 @@ class ContextConfiguration(PropertySource):
         def decorator(func) -> Any:
             def wrapper():
                 """
-                Iterates over the given properties and stores the values for each property in a dictionary.
-                Creates a dict with all keys and the corresponding values which then will be
-                injected into the annotated function. If is_singleton is true, stores the returned object and
-                returns it again the next time.
+                Iterates over the given properties and stores the values for each property
+                in a dictionary. Creates a dict with all keys and the corresponding values
+                which then will be injected into the annotated function. If is_singleton
+                is true, stores the returned object and returns it again the next time.
 
-                :return: The class built with the given properties from the dictionary.
+                :return: The class that is built with the given properties from the dictionary.
                 """
                 if is_singleton and id(func) in self._bean_store:
                     return self._bean_store[id(func)]
@@ -90,7 +106,8 @@ class ContextConfiguration(PropertySource):
 
 class ContextConfigurationBuilder:
     """
-    Builder class for a ContextConfiguration instance. TODO: should be replaced with (another) immutable object creation.
+    Builder class for a ContextConfiguration instance.
+    TODO: should be replaced with (another) immutable object creation.
     """
     _property_sources: List[OrderedPropertySource] = []
     _converter: Dict[type, Callable] = {}
@@ -117,4 +134,9 @@ class ContextConfigurationBuilder:
         return self
 
     def build(self) -> ContextConfiguration:
+        """
+        Builder method for creating a ContextConfiguration instance.
+
+        :return: A ContextConfiguration object.
+        """
         return ContextConfiguration(self._property_sources, self._converter)
