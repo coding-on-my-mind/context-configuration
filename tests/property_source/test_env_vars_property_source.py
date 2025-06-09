@@ -1,7 +1,7 @@
 import os
 from unittest import mock
 
-from property_source.env_vars_property_source import EnvVarsPropertySource
+from src.context_configuration.property_source.env_vars_property_source import EnvVarsPropertySource
 
 
 def test_should_return_property_from_environment():

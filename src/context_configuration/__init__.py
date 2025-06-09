@@ -1,18 +1,29 @@
+"""
+The context configuration library is a library to facilitate the
+configuration of a Python project in an easy, secure way.
+"""
+from .protocol import P, T, Property, PropertySource, OrderedPropertySource, \
+    Converter
 from .converter import DataclassConverter, IsoFormatDateTimeConverter
-from .property_source import AbstractPropertySource, CLIPropertySource, DictionaryPropertySource, EnvVarsPropertySource, PyYAMLPropertySource
-from .protocol import T, Converter, P, PropertySource, OrderedPropertySource
+from .property_source import AbstractPropertySource, CLIPropertySource, \
+    DictionaryPropertySource, PyYAMLPropertySource, EnvVarsPropertySource
+from .context_configuration import ContextConfigurationBuilder, \
+    ContextConfiguration
 
 __all__ = (
-    DataclassConverter,
-    IsoFormatDateTimeConverter,
-    AbstractPropertySource,
-    CLIPropertySource,
-    DictionaryPropertySource,
-    EnvVarsPropertySource,
-    PyYAMLPropertySource,
-    T,
-    Converter,
-    P,
-    PropertySource,
-    OrderedPropertySource,
+    "P",
+    "T",
+    "Property",
+    "PropertySource",
+    "OrderedPropertySource",
+    "Converter",
+    "DataclassConverter",
+    "IsoFormatDateTimeConverter",
+    "AbstractPropertySource",
+    "CLIPropertySource",
+    "DictionaryPropertySource",
+    "EnvVarsPropertySource",
+    "PyYAMLPropertySource",
+    "ContextConfigurationBuilder",
+    "ContextConfiguration",
 )

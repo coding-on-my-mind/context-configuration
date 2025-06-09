@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from converter.iso_format_datetime_converter import IsoFormatDateTimeConverter
+from src.context_configuration.converter.iso_format_datetime_converter import IsoFormatDateTimeConverter
 
 
 def test_should_return_correct_type():

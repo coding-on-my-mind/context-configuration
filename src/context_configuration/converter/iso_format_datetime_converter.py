@@ -1,11 +1,17 @@
+"""
+Converter for converting a string into a datetime object. It expects
+an ISO8601 datetime string as input.
+"""
 from datetime import datetime
 from typing import Any
 
-from ..protocol.converter import Converter, T
+from .. import Converter, T
 
 
 class IsoFormatDateTimeConverter(Converter[datetime]):
-
+    """
+    Converts a string to an ISO formatted datetime object.
+    """
 
     def for_type(self) -> T:
         return datetime

@@ -3,8 +3,8 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from converter.iso_format_datetime_converter import IsoFormatDateTimeConverter
-from property_source.dictionary_property_source import DictionaryPropertySource
+from src.context_configuration.converter.iso_format_datetime_converter import IsoFormatDateTimeConverter
+from src.context_configuration.property_source.dictionary_property_source import DictionaryPropertySource
 
 
 def test_should_raise_key_error_on_empty_key():

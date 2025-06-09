@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from context_configuration.context_configuration import ContextConfigurationBuilder, Property
+from context_configuration import Property
+from context_configuration.context_configuration import ContextConfigurationBuilder
 from context_configuration.converter.dataclass_converter import DataclassConverter
 from context_configuration.property_source.env_vars_property_source import EnvVarsPropertySource
 
@@ -36,10 +37,10 @@ def get_new_policy(name, description):
 
 
 def main():
-    print(get_policy())
-    print(get_policy())
-    print(get_new_policy())
-    print(get_new_policy())
+    print(id(get_policy()))
+    print(id(get_policy()))
+    print(id(get_new_policy()))
+    print(id(get_new_policy()))
 
 
 if __name__ == '__main__':
