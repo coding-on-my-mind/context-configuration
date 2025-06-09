@@ -31,9 +31,9 @@ classifiers = [
 ]
 
 [project.urls]
-homepage = "https://coding-on-my-mind.com"
-repository = "https://github.com/coding-on-my-mind/context-configuration"
-issues = "https://github.com/coding-on-my-mind/context-configuration/issues"
+Homepage = "https://coding-on-my-mind.com"
+Source = "https://github.com/coding-on-my-mind/context-configuration"
+Issues = "https://github.com/coding-on-my-mind/context-configuration/issues"
 
 [project.optional-dependencies]
 dev = [

@@ -11,6 +11,7 @@ P = TypeVar('P')
 
 Property = namedtuple('Property', ['argument', 'property_name', 'type'])
 
+
 class PropertySource(Protocol):
     """
     Class containing a set of objects that can be referenced by a key.

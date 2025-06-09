@@ -39,7 +39,8 @@ class ContextConfiguration(PropertySource):
         """
         Initializer for the ContextConfiguration class.
 
-        :param property_sources: The list of ProperySource objects that can contain configurations.
+        :param property_sources: The list of ProperySource objects that can contain
+                                 configurations.
         :param converter: The list of converter classes that can translate one object into a
                           given class. Will not overwrite a given set of default converters unless
                           you define a converter for the target class again.

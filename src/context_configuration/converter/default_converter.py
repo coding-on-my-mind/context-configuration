@@ -50,7 +50,7 @@ def default_converter() -> Dict[type, Callable]:
     }
 
 
-# For duration take isodate.parse_duration('PT1H5M26S')
+# TODO: for duration take isodate.parse_duration('PT1H5M26S')
 
 def convert(value: Any, converter_list: Dict[type, Callable], cls: type[P]) -> P:
     """

@@ -39,15 +39,10 @@ class DataclassConverter(Converter[T]):
             if param.name not in properties:
                 if param.default != inspect.Parameter.empty:
                     properties[param.name] = param.default
-                    continue
-                if param.annotation == typing.Optional[str]:
-                    continue
-                if param.annotation == typing.Optional[int]:
-                    continue
-                if param.annotation == typing.Optional[float]:
-                    continue
-                raise ValueError(f"Required key '{param.name}' not found "
-                                 f"in configuration parameters.")
+                    return
+                if not self._is_optional(param):
+                    raise ValueError(f"Required key '{param.name}' not found "
+                                     f"in configuration parameters.")
             if not isinstance(properties[param.name], param.annotation):
                 raise ValueError(f"Required key '{param.name}' is of wrong type "
                                  f"(expected: '{param.annotation}', "
@@ -58,3 +53,12 @@ class DataclassConverter(Converter[T]):
         except ValueError as e:
             raise ValueError(f"Could not convert '{properties}' to dataclass of "
                              f"type '{self._cls}'.") from e
+
+    def _is_optional(self, param: inspect.Parameter) -> bool:
+        if param.annotation == typing.Optional[str]:
+            return True
+        if param.annotation == typing.Optional[int]:
+            return True
+        if param.annotation == typing.Optional[float]:
+            return True
+        return False
