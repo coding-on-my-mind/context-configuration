@@ -50,8 +50,6 @@ class ContextConfiguration(PropertySource):
         self._property_sources = property_sources
         self._converter.update(converter)
 
-        self._make_immutable()
-
     def contains_property(self, name: str) -> bool:
         for source in self._property_sources:
             if source.contains_property(name):
@@ -69,13 +67,6 @@ class ContextConfiguration(PropertySource):
             value = source.get_property(name, cls)
             return convert(value, self._converter, cls)
         raise KeyError(f"Could not find property '{name}'")
-
-    def _make_immutable(self) -> None:
-        """
-        Not implemented yet.
-        """
-        self._property_sources = sorted(self._property_sources, key=lambda source: source.get_order)
-        self._immutable = True
 
     def properties(self, properties: List[Property], is_singleton: bool = True) -> Any:
         """
