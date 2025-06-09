@@ -51,7 +51,7 @@ version = {file = "__version__.txt"}
 
 [tool.pytest.ini_options]
 pythonpath = [
-    "./src"
+    "./src/context_configuration"
 ]
 addopts = [
     "--import-mode=importlib",
