@@ -1,3 +1,8 @@
+"""
+Module for PropertySource objects.
+
+A PropertySource object is a minimal class for storing configuration.
+"""
 from .abstract_property_source import AbstractPropertySource
 from .cli_property_source import CLIPropertySource
 from .dictionary_property_source import DictionaryPropertySource
