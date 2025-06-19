@@ -1,18 +1,18 @@
 # Context Configuration for Python
 
+*This lib is considered to be in an early alpha state*
+
 A simple, but powerful library to manage the configuration of your projects.
 
 ## What is the purpose of this library?
 
-* Usually, the configuration of an application is done in an inconsistent way, e.g., by hard-coding some properties
+* The configuration of an application is often done in an inconsistent way, e.g., by hard-coding some properties
   and passing some via environment variables.
-* Often, the configuration changes for the different stages.
-  Usually, you want to use different settings in your local environment compared to your in production.
-  These configuration changes will then be updated to the prod settings before the commit to the repository. 
+* The configuration also often changes for the different stages.
+  Usually, you want to use different settings in your local environment compared to those in production.
+* For testing purposes, credentials are hard-coded into the code, which is highly dangerous in some cases (see also [Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine][Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine]).
+  These manual configuration changes will then be reversed before the commit to the repository.
   This process can be cumbersome and error-prone.
-* Do not hard code URLs, files, etc. Instead, move the configuration into configuration files.
-* Hard-coding credentials is highly dangerous in many cases (see also [Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine][Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine]),
-  and even forbidden for credentials when the code will be stored in a versioning system.
 * Keeping track of the configuration gets messy when you want to deploy your software on different systems, or you 
   want it to work in your development environment as well as on production.
 
@@ -31,7 +31,7 @@ This is an example for a workflow that is possible with this library:
 The first step is to define one or more ```PropertySource``` classes, where each is a source for a single configuration.
 You then can create a ```ContextConfiguration``` object that manages your ```PropertySource``` classes.
 With such a library, you define a single point for your configuration.
-You then can use this dedicated place to fetch the configuration every item.
+You then can use this dedicated place to fetch the configuration for every property.
 This example shows you how it can be used:
 
 ```python
@@ -96,6 +96,12 @@ if __name__ == '__main__':
 # 140188272664753
 # 140188272691520
 ```
+
+# Todos
+
+* implement more converter, e.g., for Durations according to ISO8106
+* check the PropertySource for CLI arguments, this might not be fully implemented and not tested on Windows
+* Add documentation how to include other configuration classes, e.g., for Spring Cloud Config server, Cloudfoundry configuration, etc.
 
 [Binary secret scanning helped us prevent (what might have been) the worst supply chain attack you can imagine]: https://jfrog.com/blog/leaked-pypi-secret-token-revealed-in-binary-preventing-suppy-chain-attack/
   
