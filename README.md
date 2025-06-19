@@ -6,6 +6,9 @@ A simple, but powerful library to manage the configuration of your projects.
 
 ## What is the purpose of this library?
 
+Python does not come with an out-of-the-box solution for a seamless configuration handling, 
+which might lead to the following problems:
+
 * The configuration of an application is often done in an inconsistent way, e.g., by hard-coding some properties
   and passing some via environment variables.
 * The configuration also often changes for the different stages.
@@ -16,6 +19,8 @@ A simple, but powerful library to manage the configuration of your projects.
 * Keeping track of the configuration gets messy when you want to deploy your software on different systems, or you 
   want it to work in your development environment as well as on production.
 
+This is where this library wants to help.
+
 ## Consistent configurations across different environments reduce "it works on my machine" issues.
 
 This is an example for a workflow that is possible with this library: 
@@ -24,7 +29,7 @@ This is an example for a workflow that is possible with this library:
   your test or local environment.
 * Leave out the credentials from your configuration files, that are commited to a (Git) repository.
 * Instead, define a configuration that is excluded from your repository, where you can define credentials and 
-  overwrite some settings.
+  overwrite some settings for the different environments.
 
 ## How to start
 
