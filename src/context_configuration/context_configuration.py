@@ -66,6 +66,9 @@ class ContextConfiguration(PropertySource):
                 continue
 
             value = source.get_property(name, cls)
+            if cls is None:
+                return value
+
             return convert(value, self._converter, cls)
         raise KeyError(f"Could not find property '{name}'")
 
